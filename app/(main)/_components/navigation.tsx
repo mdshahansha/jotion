@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { UserItem } from "./user-items";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const Navigation = () => {
     const pathname = usePathname();
@@ -15,19 +17,21 @@ const Navigation = () => {
     const [isResetting, setIsResetting] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
-    useEffect(()=>{
-        if(isMobile){
+    const documents = useQuery(api.document.get)
+
+    useEffect(() => {
+        if (isMobile) {
             collapse();
-        }else{
+        } else {
             resetWidth();
         }
-    },[isMobile]);
+    }, [isMobile]);
 
-    useEffect(()=>{
-        if(isMobile){
+    useEffect(() => {
+        if (isMobile) {
             collapse();
         }
-    },[pathname,isMobile]);
+    }, [pathname, isMobile]);
 
 
 
@@ -101,12 +105,12 @@ const Navigation = () => {
 
 
             <div className={cn(
-                "h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opcaity-0 group-hover/sidebar:opacity-100 transition",
-                isMobile && "opcaity-100"
+                "h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
+                isMobile && "opacity-100"
             )}
                 role="button"
                 onClick={collapse}
-                >
+            >
                 <ChevronsLeft className="h-6 w-6" />
             </div>
 
@@ -114,7 +118,11 @@ const Navigation = () => {
                 <UserItem />
             </div>
             <div className="mt-4">
-                <p>Documents</p>
+                {
+                    documents?.map((document) => (
+                        <p key={document._id}>{document.title}</p>
+                    ))
+                }
             </div>
 
             <div
