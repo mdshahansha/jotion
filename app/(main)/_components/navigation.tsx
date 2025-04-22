@@ -1,11 +1,13 @@
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon } from "lucide-react";
+import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { UserItem } from "./user-items";
-import { useQuery } from "convex/react";
+import { useMutation, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Item } from "./item";
+import { toast } from "sonner";
 
 const Navigation = () => {
     const pathname = usePathname();
@@ -18,6 +20,7 @@ const Navigation = () => {
     const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
     const documents = useQuery(api.document.get)
+    const create = useMutation(api.document.create)
 
     useEffect(() => {
         if (isMobile) {
@@ -96,13 +99,25 @@ const Navigation = () => {
         }
     }
 
+    const handleCreate = () => {
+        const promise = create({ title: "untitled" })
+
+        toast.promise(promise, {
+            loading: "Creating a new note....",
+            success: "New note Created !",
+            error: "Failed to create a new note"
+        })
+    }
+
+
+
+
     return (
         <>        <aside ref={sidebarRef}
             className={cn("group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]",
                 isResetting && "transition-all ease-in-out duration-300",
                 isMobile && "w-0"
             )}>
-
 
             <div className={cn(
                 "h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
@@ -116,6 +131,9 @@ const Navigation = () => {
 
             <div>
                 <UserItem />
+                <Item onClick={() => { }} label="Search" icon={Search} isSearch />
+                <Item label="Settings" icon={Settings} onClick={() => { }} />
+                <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
             </div>
             <div className="mt-4">
                 {
