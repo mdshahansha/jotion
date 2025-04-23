@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
+import { ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
@@ -9,10 +9,16 @@ import { api } from "@/convex/_generated/api";
 import { Item } from "./item";
 import { toast } from "sonner";
 import { DocumentList } from "./document-list";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { TrashBox } from "./trash-box";
+import { useSearch } from "@/hooks/user-search";
+import { useSettings } from "@/hooks/use-settings";
 
 const Navigation = () => {
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width:768px)");
+    const search=useSearch();
+    const settings=useSettings();
 
     const isResizingRef = useRef(false);
     const sidebarRef = useRef<ElementRef<"aside">>(null);
@@ -132,12 +138,27 @@ const Navigation = () => {
 
             <div>
                 <UserItem />
-                <Item onClick={() => { }} label="Search" icon={Search} isSearch />
-                <Item label="Settings" icon={Settings} onClick={() => { }} />
+                <Item onClick={search.onOpen} label="Search" icon={Search} isSearch />
+                <Item label="Settings" icon={Settings} onClick={settings.onOpen} />
                 <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
             </div>
             <div className="mt-4">
                 <DocumentList />
+                <Item
+                    onClick={handleCreate}
+                    icon={Plus}
+                    label="Add a NewPage"
+                />
+                <Popover>
+                    <PopoverTrigger className="w-full mt-4">
+                        <Item label="Trash" icon={Trash} />
+                    </PopoverTrigger>
+                    <PopoverContent
+                        className="p-0 w-72"
+                        side={isMobile ? "bottom" : "right"} >
+                        <TrashBox />
+                    </PopoverContent>
+                </Popover>
                 {/* {
                     documents?.map((document) => (
                         <p key={document._id}>{document.title}</p>
