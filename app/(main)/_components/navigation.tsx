@@ -4,10 +4,11 @@ import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { UserItem } from "./user-items";
-import { useMutation, useQuery } from "convex/react";
+import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Item } from "./item";
 import { toast } from "sonner";
+import { DocumentList } from "./document-list";
 
 const Navigation = () => {
     const pathname = usePathname();
@@ -19,7 +20,7 @@ const Navigation = () => {
     const [isResetting, setIsResetting] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(isMobile);
 
-    const documents = useQuery(api.document.get)
+    // const documents = useQuery(api.document.get)
     const create = useMutation(api.document.create)
 
     useEffect(() => {
@@ -136,11 +137,12 @@ const Navigation = () => {
                 <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
             </div>
             <div className="mt-4">
-                {
+                <DocumentList />
+                {/* {
                     documents?.map((document) => (
                         <p key={document._id}>{document.title}</p>
                     ))
-                }
+                } */}
             </div>
 
             <div
@@ -163,5 +165,6 @@ const Navigation = () => {
 
     );
 }
+
 
 export default Navigation;
