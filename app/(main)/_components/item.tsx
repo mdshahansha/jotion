@@ -1,6 +1,10 @@
 "use client"
 
+<<<<<<< Updated upstream
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+=======
+import { DropdownMenu } from "@/components/ui/dropdown-menu";
+>>>>>>> Stashed changes
 import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -123,6 +127,7 @@ export const Item = ({
             {
                 !!id && (
                     <div className="ml-auto flex items-center gap-x-2">
+<<<<<<< Updated upstream
                         <DropdownMenu>
                             <DropdownMenuTrigger
                                 onClick={(e) => e.stopPropagation()}
@@ -154,6 +159,11 @@ export const Item = ({
                             </DropdownMenuContent>
                         </DropdownMenu>
 
+=======
+                        <DropdownMenu >
+                            
+                        </DropdownMenu>
+>>>>>>> Stashed changes
                         <div role="button"
                             onClick={onCreate}
                             className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 ">
