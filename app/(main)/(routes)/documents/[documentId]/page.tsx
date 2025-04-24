@@ -16,13 +16,13 @@ export default function DocumentIdPage() {
     [],
   );
 
-  // @ts-ignore
+  // @ts-expect-error
   const document = useQuery(api.document.getById, { documentId: documentId });
 
   const update = useMutation(api.document.update);
 
   const onChange = (content: string) => {
-    // @ts-ignore
+    // @ts-expect-error
     update({ id: documentId, content });
   };
 
