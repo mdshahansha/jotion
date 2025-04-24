@@ -8,7 +8,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 const Heading = () => {
-   const { isAuthenticated, isLoading } = useConvexAuth
+   const { isAuthenticated, isLoading } = useConvexAuth()
    return (
 
       <div className="max-w-3xl space-y-4">

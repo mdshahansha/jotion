@@ -1,4 +1,4 @@
-"use Client"
+"use client"
 
  
 import { useSettings } from "@/hooks/use-settings";
