@@ -12,9 +12,8 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 export const Navbar = () => {
-    const { isAuthenticated, user, isLoading } = useConvexAuth()
+    const { isAuthenticated, isLoading } = useConvexAuth()
     const scrolled = useScrollTop();
-    console.log("user", user)
     console.log("isAuthenticated", isAuthenticated, "  -  ", isLoading);
 
     useEffect(() => {

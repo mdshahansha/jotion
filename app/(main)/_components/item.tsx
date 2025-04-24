@@ -8,7 +8,7 @@ import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/clerk-react";
 import { useMutation } from "convex/react";
-import { ChevronDown, ChevronRight, MoreHorizontal, Plus, Trash } from "lucide-react";
+import { ChevronDown, ChevronRight, LucideIcon, MoreHorizontal, Plus, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -22,6 +22,7 @@ interface ItemProps {
     onExpand?: () => void
     onClick?: () => void;
     icon: LucideIcon;
+    level?:number
 }
 
 export const Item = ({

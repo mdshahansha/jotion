@@ -36,7 +36,7 @@ export const Title=({
         setIsEditing(false);
     }
     const onChange=(
-        event:React.ChangeEvent<HTMlInputElement>
+        event:React.ChangeEvent<HTMLInputElement>
     )=>{
         setTitle(event.target.value);
         update({
@@ -49,7 +49,7 @@ export const Title=({
     const onKeyDown=(
         event: React.KeyboardEvent<HTMLInputElement>)=>{
             if(event.key==="Enter"){
-                disbaleInput();
+                disableInput();
             }
         }
     

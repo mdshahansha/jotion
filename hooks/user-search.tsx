@@ -11,5 +11,5 @@
     isOpen:false,
     onOpen:()=> set({isOpen:true}),
     onClose:() => set({isOpen:false}),
-    toggle:()=>set({isOpen :!get.isOpen })
+    toggle:()=>set({isOpen :!get().isOpen })
  }))

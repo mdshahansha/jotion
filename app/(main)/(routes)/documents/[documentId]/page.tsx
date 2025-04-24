@@ -16,13 +16,14 @@ export default function DocumentIdPage() {
     [],
   );
 
-  // @ts-expect-error
+  // @ts-expect-error - value might be undefined during SSR
   const document = useQuery(api.document.getById, { documentId: documentId });
 
   const update = useMutation(api.document.update);
 
+
   const onChange = (content: string) => {
-    // @ts-expect-error
+  // @ts-expect-error - difference  might be undefined during SSRsos
     update({ id: documentId, content });
   };
 

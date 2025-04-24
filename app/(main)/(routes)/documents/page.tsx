@@ -6,28 +6,31 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { useMutation } from "convex/react";
 
-import {api} from "@/convex/_generated/api"
+import { api } from "@/convex/_generated/api"
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const DocumentsPage = () => {
     const { user } = useUser();
-    const create=useMutation(api.document.create);
-    const router=useRouter()
+    const create = useMutation(api.document.create);
+    const router = useRouter()
 
-    const onCreate=()=>{
-        const promise =create({title:"untitle"})
-        .then((documentId)=> router.push(`/documents/${documentId}`))
+    const onCreate = () => {
+        const promise = create({ title: "untitle" })
+            .then((documentId) => router.push(`/documents/${documentId}`))
 
-        toast.promise(promise,{
-            loading:"creating a new note",
-            success :"New note Created !",
-            error:"Failed to create a new note"
+        toast.promise(promise, {
+            loading: "creating a new note",
+            success: "New note Created !",
+            error: "Failed to create a new note"
         })
     }
 
     return (
+
         <div className="h-full flex flex-col items-center justify-center space-y-4">
+
+
             <Image src="/empty.png"
                 className="dark:hidden"
                 height="300"

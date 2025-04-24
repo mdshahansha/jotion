@@ -1,3 +1,5 @@
+"use client"
+
 import { cn } from "@/lib/utils";
 import { ChevronsLeft, MenuIcon, Plus, PlusCircle, Search, Settings, Trash } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
@@ -32,13 +34,31 @@ const Navigation = () => {
     // const documents = useQuery(api.document.get)
     const create = useMutation(api.document.create)
 
+    const resetWidth = () => {
+        if (sidebarRef.current && navbarRef.current) {
+            setIsCollapsed(false);
+            setIsResetting(true);
+
+            sidebarRef.current.style.width = isMobile ? "100%" : "240px";
+            navbarRef.current.style.setProperty(
+                "width",
+                isMobile ? "0" : "calc(100%-240px)"
+            );
+            navbarRef.current.style.setProperty(
+                "left",
+                isMobile ? "100%" : "240px"
+            );
+            setTimeout(() => setIsResetting(false), 300);
+        }
+    }
+
     useEffect(() => {
         if (isMobile) {
             collapse();
         } else {
             resetWidth();
         }
-    }, [isMobile]);
+    }, [isMobile, resetWidth]);
 
     useEffect(() => {
         if (isMobile) {
@@ -79,23 +99,7 @@ const Navigation = () => {
         document.removeEventListener("mouseup", handleMouseUp);
     }
 
-    const resetWidth = () => {
-        if (sidebarRef.current && navbarRef.current) {
-            setIsCollapsed(false);
-            setIsResetting(true);
 
-            sidebarRef.current.style.width = isMobile ? "100%" : "240px";
-            navbarRef.current.style.setProperty(
-                "width",
-                isMobile ? "0" : "calc(100%-240px)"
-            );
-            navbarRef.current.style.setProperty(
-                "left",
-                isMobile ? "100%" : "240px"
-            );
-            setTimeout(() => setIsResetting(false), 300);
-        }
-    }
 
     const collapse = () => {
         if (sidebarRef.current && navbarRef.current) {
